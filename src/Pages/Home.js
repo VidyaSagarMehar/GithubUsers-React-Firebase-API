@@ -26,6 +26,11 @@ export default function Home() {
 		}
 	};
 
+	// Don't allow anyone to acces to the dashboard
+	if (!context.user?.uid) {
+		return <Redirect to="/signin" />;
+	}
+
 	return (
 		<Container>
 			<Row className=" mt-3">
@@ -44,7 +49,7 @@ export default function Home() {
 					</InputGroup>
 					{user ? <UserCard user={user} /> : null}
 				</Col>
-				<Col md="7"></Col>
+				<Col md="7">{user ? <Repos repos_url={user.repos_url} /> : null}</Col>
 			</Row>
 		</Container>
 	);
